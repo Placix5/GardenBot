@@ -21,6 +21,8 @@ public class MainServer extends AbstractVerticle {
 			}
 		});
 		
+		vertx.deployVerticle(TelegramVerticle.class.getName());
+		vertx.deployVerticle(MQTTVerticle.class.getName());
 	}
 	
 }
