@@ -1,14 +1,13 @@
 #include <Arduino.h>
-#include <ESP32Servo.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 
 WiFiClient client; //Lo usaremos para gestionar la conexión a la red wifi
 
 String SSID = "PUERTOSURFIBRA869A";
-String PASS = "A52869A";
+String PASS = "A523869A";
 
-Servo servo;
+int hum;
 
 void setup() {
   
@@ -24,19 +23,26 @@ void setup() {
   Serial.println("Conectado, IP: ");
   Serial.print(WiFi.localIP());
 
+  pinMode(D1,OUTPUT);
+  pinMode(A0,INPUT);
 
-  //Inicialización de los servos
-  //servo.setPeriodHertz(50);// Standard 50hz servo
-  servo.attach(9, 500, 2400);
-  servo.write(0);
+  digitalWrite(D1,HIGH);
 
+  delay(200);
 }
 
 void loop() {
-  
-  servo.write(90);
-  delay(200);
-  servo.write(0);
-  delay(200);
+
+Serial.println(analogRead(A0));
+delay(200);
+
+hum = analogRead(A0);
+
+digitalWrite(D1,LOW);
+if(hum > 500){
+
+  digitalWrite(D1,HIGH);
+
+}
 
 }
